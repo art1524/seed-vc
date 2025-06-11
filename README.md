@@ -1,3 +1,48 @@
+1 推理：
+python inference_v2.py --source 'C:\Users\Administrator\Desktop\out\yout.mp3' \
+--target 'C:\Users\Administrator\Desktop\out\stone.mp3' \
+--output "C:\Users\Administrator\Desktop\out" \
+--diffusion-steps 50 \
+--length-adjust 1.0 \
+--intelligibility-cfg-rate 0.7 \
+--similarity-cfg-rate 0.7 \
+--convert-style true \
+--anonymization-only false \
+--top-p 0.9 \
+--temperature 1 \
+--repetition-penalty 1.0 
+
+2 训练：
+
+accelerate launch train_v2.py \
+--dataset-dir 'C:\Users\Administrator\Desktop\test4' \
+--run-name 'lin' \
+--batch-size 2 \
+--max-steps 1000 \
+--max-epochs 1000 \
+--save-every 1 \
+--num-workers 1 \
+--train-cfm
+
+test4文件夹的音频不超过30s，而且是batch-size 的整数倍。
+结果在：D:\model\seed-vc-main\runs\lin\CFM_epoch_00005_step_00060.pth
+
+3 测试
+python inference_v2.py --source 'C:\Users\Administrator\Desktop\out\yout.mp3' \
+--target 'C:\Users\Administrator\Desktop\out\stone.mp3' \
+--output "C:\Users\Administrator\Desktop\out" \
+--diffusion-steps 50 \
+--length-adjust 1.0 \
+--intelligibility-cfg-rate 0.7 \
+--similarity-cfg-rate 0.7 \
+--convert-style true \
+--anonymization-only false \
+--top-p 0.9 \
+--temperature 1 \
+--repetition-penalty 1.0 \
+--cfm-checkpoint-path 'D:\model\seed-vc-main\runs\lin\CFM_epoch_00005_step_00060.pth'
+
+
 # Seed-VC  
 [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Demo-blue)](https://huggingface.co/spaces/Plachta/Seed-VC)  [![arXiv](https://img.shields.io/badge/arXiv-2411.09943-<COLOR>.svg)](https://arxiv.org/abs/2411.09943)
 
